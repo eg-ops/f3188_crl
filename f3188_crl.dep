@@ -155,7 +155,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 18 10 46 114 2 14 52 0 12 7 16 49 48 17 3 9 11 13 15 19 56</file>
+          <file> 49 0 12 10 7 16 46 114 2 14 18 52 48 17 3 9 11 13 15 19 56</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -178,7 +178,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 17 9 0 13 3 11 15 19 56 48 46 114 2 7 10 12 14 16 18 49 52</file>
+          <file> 18 10 0 46 114 2 14 52 7 12 16 49 48 3 9 11 13 15 17 19 56</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
@@ -792,9 +792,6 @@
     <forcedrebuild>
       <name>$PROJ_DIR$\STM8S_StdPeriph_Driver\src\stm8s_uart4.c</name>
       <tool>ICCSTM8</tool>
-    </forcedrebuild>
-    <forcedrebuild>
-      <name>[REBUILD_ALL]</name>
     </forcedrebuild>
   </configuration>
   <configuration>

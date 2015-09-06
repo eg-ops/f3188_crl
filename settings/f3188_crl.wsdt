@@ -10,7 +10,7 @@
     <Static>
       <Workspace>
         <ColumnWidths>
-          <Column0>246</Column0>
+          <Column0>263</Column0>
           <Column1>27</Column1>
           <Column2>27</Column2>
           <Column3>27</Column3>
@@ -22,6 +22,7 @@
         <ColumnWidth2>244</ColumnWidth2>
         <ColumnWidth3>61</ColumnWidth3>
       </Build>
+      <TerminalIO/>
     </Static>
     <Windows>
       <Wnd0>
@@ -34,8 +35,6 @@
               <NodeDict>
                 <ExpandedNode>f3188_crl</ExpandedNode>
                 <ExpandedNode>f3188_crl/STM8S_StdPeriph_Driver</ExpandedNode>
-                <ExpandedNode>f3188_crl/STM8S_StdPeriph_Driver/inc</ExpandedNode>
-                <ExpandedNode>f3188_crl/STM8S_StdPeriph_Driver/src</ExpandedNode>
               </NodeDict>
             </Session>
           </Tab>
@@ -76,9 +75,9 @@
           <SelStart>0</SelStart>
           <SelEnd>0</SelEnd>
           <XPos2>0</XPos2>
-          <YPos2>9</YPos2>
-          <SelStart2>453</SelStart2>
-          <SelEnd2>453</SelEnd2>
+          <YPos2>50</YPos2>
+          <SelStart2>1767</SelStart2>
+          <SelEnd2>1767</SelEnd2>
         </Tab>
         <ActiveTab>1</ActiveTab>
         <Tab>
@@ -89,9 +88,9 @@
           <SelStart>0</SelStart>
           <SelEnd>0</SelEnd>
           <XPos2>0</XPos2>
-          <YPos2>0</YPos2>
-          <SelStart2>0</SelStart2>
-          <SelEnd2>0</SelEnd2>
+          <YPos2>120</YPos2>
+          <SelStart2>4014</SelStart2>
+          <SelEnd2>4014</SelEnd2>
         </Tab>
         <Tab>
           <Factory>TextEditor</Factory>
@@ -101,9 +100,69 @@
           <SelStart>0</SelStart>
           <SelEnd>0</SelEnd>
           <XPos2>0</XPos2>
-          <YPos2>0</YPos2>
-          <SelStart2>0</SelStart2>
-          <SelEnd2>0</SelEnd2>
+          <YPos2>40</YPos2>
+          <SelStart2>2274</SelStart2>
+          <SelEnd2>2274</SelEnd2>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\STM8S_StdPeriph_Driver\src\stm8s_gpio.c</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>0</SelStart>
+          <SelEnd>0</SelEnd>
+          <XPos2>0</XPos2>
+          <YPos2>142</YPos2>
+          <SelStart2>5994</SelStart2>
+          <SelEnd2>6007</SelEnd2>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\STM8S_StdPeriph_Driver\src\stm8s_clk.c</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>0</SelStart>
+          <SelEnd>0</SelEnd>
+          <XPos2>0</XPos2>
+          <YPos2>294</YPos2>
+          <SelStart2>9494</SelStart2>
+          <SelEnd2>9494</SelEnd2>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\STM8S_StdPeriph_Driver\inc\stm8s.h</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>0</SelStart>
+          <SelEnd>0</SelEnd>
+          <XPos2>0</XPos2>
+          <YPos2>2722</YPos2>
+          <SelStart2>116655</SelStart2>
+          <SelEnd2>116658</SelEnd2>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_exti.h</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>0</SelStart>
+          <SelEnd>0</SelEnd>
+          <XPos2>0</XPos2>
+          <YPos2>35</YPos2>
+          <SelStart2>1728</SelStart2>
+          <SelEnd2>1754</SelEnd2>
+        </Tab>
+        <Tab>
+          <Factory>TextEditor</Factory>
+          <Filename>$WS_DIR$\STM8S_StdPeriph_Driver\inc\stm8s_gpio.h</Filename>
+          <XPos>0</XPos>
+          <YPos>0</YPos>
+          <SelStart>0</SelStart>
+          <SelEnd>0</SelEnd>
+          <XPos2>0</XPos2>
+          <YPos2>45</YPos2>
+          <SelStart2>2373</SelStart2>
+          <SelEnd2>2391</SelEnd2>
         </Tab>
       </Pane>
       <ActivePane>0</ActivePane>
@@ -124,6 +183,12 @@
             </Toolbar-003991D8>
           </Sizes>
         </Row0>
+        <Row1>
+          <Sizes/>
+        </Row1>
+        <Row2>
+          <Sizes/>
+        </Row2>
       </Top>
       <Left>
         <Row0>
@@ -158,7 +223,7 @@
             <Wnd1>
               <Rect>
                 <Top>-2</Top>
-                <Left>640</Left>
+                <Left>-2</Left>
                 <Bottom>198</Bottom>
                 <Right>1282</Right>
                 <x>-2</x>
