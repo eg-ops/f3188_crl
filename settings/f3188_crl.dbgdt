@@ -1,68 +1,161 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
-<Workspace>
-  <ConfigDictionary>
-    <CurrentConfigs>
-      <Project>f3188_crl/Debug</Project>
-    </CurrentConfigs>
-  </ConfigDictionary>
+<Project>
   <Desktop>
     <Static>
-      <Workspace>
-        <ColumnWidths>
-          <Column0>246</Column0>
-          <Column1>27</Column1>
-          <Column2>27</Column2>
-          <Column3>27</Column3>
-        </ColumnWidths>
-      </Workspace>
+      <Debug-Log>
+        <ColumnWidth0>20</ColumnWidth0>
+        <ColumnWidth1>1221</ColumnWidth1>
+      </Debug-Log>
       <Build>
         <ColumnWidth0>20</ColumnWidth0>
         <ColumnWidth1>915</ColumnWidth1>
         <ColumnWidth2>244</ColumnWidth2>
         <ColumnWidth3>61</ColumnWidth3>
       </Build>
-      <TerminalIO/>
-      <Debug-Log>
-        <ColumnWidth0>20</ColumnWidth0>
-        <ColumnWidth1>1221</ColumnWidth1>
-      </Debug-Log>
+      <Workspace>
+        <ColumnWidths>
+          <Column0>124</Column0>
+          <Column1>27</Column1>
+          <Column2>27</Column2>
+          <Column3>27</Column3>
+        </ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        <col-names>
+          <item>Disassembly</item>
+          <item>_I0</item>
+        </col-names>
+        <col-widths>
+          <item>500</item>
+          <item>20</item>
+        </col-widths>
+        <DisasmHistory/>
+        <ShowCodeCoverage>1</ShowCodeCoverage>
+        <ShowInstrProfiling>1</ShowInstrProfiling>
+      </Disassembly>
+      <Find-All-Declarations>
+        <ColumnWidth0>440</ColumnWidth0>
+        <ColumnWidth1>62</ColumnWidth1>
+        <ColumnWidth2>754</ColumnWidth2>
+      </Find-All-Declarations>
+      <Locals>
+        <col-names>
+          <item>Location</item>
+          <item>Type</item>
+          <item>Value</item>
+          <item>Variable</item>
+        </col-names>
+        <col-widths>
+          <item>150</item>
+          <item>100</item>
+          <item>254</item>
+          <item>100</item>
+        </col-widths>
+      </Locals>
+      <Select-Ambiguous-Definitions>
+        <ColumnWidth0>232</ColumnWidth0>
+        <ColumnWidth1>33</ColumnWidth1>
+        <ColumnWidth2>398</ColumnWidth2>
+      </Select-Ambiguous-Definitions>
+      <Find-All-References>
+        <ColumnWidth0>232</ColumnWidth0>
+        <ColumnWidth1>33</ColumnWidth1>
+        <ColumnWidth2>398</ColumnWidth2>
+      </Find-All-References>
+      <Statics>
+        <excluded-vars/>
+        <col-names>
+          <item>Location</item>
+          <item>Type</item>
+          <item>Value</item>
+          <item>Variable</item>
+        </col-names>
+        <col-widths>
+          <item>150</item>
+          <item>100</item>
+          <item>100</item>
+          <item>100</item>
+        </col-widths>
+      </Statics>
     </Static>
     <Windows>
-      <Wnd0>
+      <Wnd4>
         <Tabs>
           <Tab>
-            <Identity>TabID-526-1165</Identity>
-            <TabName>Workspace</TabName>
-            <Factory>Workspace</Factory>
-            <Session>
-              <NodeDict>
-                <ExpandedNode>f3188_crl</ExpandedNode>
-                <ExpandedNode>f3188_crl/STM8S_StdPeriph_Driver</ExpandedNode>
-                <ExpandedNode>f3188_crl/STM8S_StdPeriph_Driver/inc</ExpandedNode>
-              </NodeDict>
-            </Session>
+            <Identity>TabID-19932-6328</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
           </Tab>
-        </Tabs>
-        <SelectedTab>0</SelectedTab>
-      </Wnd0>
-      <Wnd1>
-        <Tabs>
           <Tab>
-            <Identity>TabID-8786-2033</Identity>
+            <Identity>TabID-19409-6338</Identity>
             <TabName>Build</TabName>
             <Factory>Build</Factory>
             <Session/>
           </Tab>
           <Tab>
-            <Identity>TabID-32004-13103</Identity>
-            <TabName>Debug Log</TabName>
-            <Factory>Debug-Log</Factory>
+            <Identity>TabID-27484-21333</Identity>
+            <TabName>Declarations</TabName>
+            <Factory>Find-All-Declarations</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-6470-5599</Identity>
+            <TabName>Ambiguous Definitions</TabName>
+            <Factory>Select-Ambiguous-Definitions</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-11468-5710</Identity>
+            <TabName>References</TabName>
+            <Factory>Find-All-References</Factory>
             <Session/>
           </Tab>
         </Tabs>
         <SelectedTab>0</SelectedTab>
-      </Wnd1>
+      </Wnd4>
+      <Wnd5>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-30681-6331</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              <NodeDict>
+                <ExpandedNode>f3188_crl</ExpandedNode>
+              </NodeDict>
+            </Session>
+          </Tab>
+        </Tabs>
+        <SelectedTab>0</SelectedTab>
+      </Wnd5>
+      <Wnd6>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-8661-6334</Identity>
+            <TabName>Disassembly</TabName>
+            <Factory>Disassembly</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        <SelectedTab>0</SelectedTab>
+      </Wnd6>
+      <Wnd7>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-7512-12761</Identity>
+            <TabName>Locals</TabName>
+            <Factory>Locals</Factory>
+          </Tab>
+          <Tab>
+            <Identity>TabID-7537-7421</Identity>
+            <TabName>Statics</TabName>
+            <Factory>Statics</Factory>
+          </Tab>
+        </Tabs>
+        <SelectedTab>1</SelectedTab>
+      </Wnd7>
     </Windows>
     <Editor>
       <Pane>
@@ -207,7 +300,11 @@
           </Sizes>
         </Row0>
         <Row1>
-          <Sizes/>
+          <Sizes>
+            <Toolbar-0531C718>
+              <key>debuggergui.enu1</key>
+            </Toolbar-0531C718>
+          </Sizes>
         </Row1>
         <Row2>
           <Sizes/>
@@ -216,49 +313,82 @@
       <Left>
         <Row0>
           <Sizes>
-            <Wnd0>
+            <Wnd5>
               <Rect>
                 <Top>-2</Top>
                 <Left>-2</Left>
-                <Bottom>475</Bottom>
-                <Right>337</Right>
+                <Bottom>451</Bottom>
+                <Right>198</Right>
                 <x>-2</x>
                 <y>-2</y>
                 <xscreen>200</xscreen>
                 <yscreen>200</yscreen>
                 <sizeHorzCX>156250</sizeHorzCX>
                 <sizeHorzCY>278552</sizeHorzCY>
-                <sizeVertCX>264844</sizeVertCX>
-                <sizeVertCY>664345</sizeVertCY>
+                <sizeVertCX>156250</sizeVertCX>
+                <sizeVertCY>630919</sizeVertCY>
               </Rect>
-            </Wnd0>
+            </Wnd5>
           </Sizes>
         </Row0>
       </Left>
       <Right>
         <Row0>
-          <Sizes/>
+          <Sizes>
+            <Wnd6>
+              <Rect>
+                <Top>-2</Top>
+                <Left>-2</Left>
+                <Bottom>451</Bottom>
+                <Right>198</Right>
+                <x>-2</x>
+                <y>-2</y>
+                <xscreen>200</xscreen>
+                <yscreen>200</yscreen>
+                <sizeHorzCX>156250</sizeHorzCX>
+                <sizeHorzCY>278552</sizeHorzCY>
+                <sizeVertCX>156250</sizeVertCX>
+                <sizeVertCY>630919</sizeVertCY>
+              </Rect>
+            </Wnd6>
+          </Sizes>
         </Row0>
       </Right>
       <Bottom>
         <Row0>
           <Sizes>
-            <Wnd1>
+            <Wnd7>
               <Rect>
                 <Top>-2</Top>
                 <Left>-2</Left>
                 <Bottom>198</Bottom>
-                <Right>1282</Right>
+                <Right>594</Right>
                 <x>-2</x>
                 <y>-2</y>
-                <xscreen>1284</xscreen>
+                <xscreen>596</xscreen>
                 <yscreen>200</yscreen>
-                <sizeHorzCX>1003125</sizeHorzCX>
+                <sizeHorzCX>465625</sizeHorzCX>
+                <sizeHorzCY>278552</sizeHorzCY>
+                <sizeVertCX>156250</sizeVertCX>
+                <sizeVertCY>630919</sizeVertCY>
+              </Rect>
+            </Wnd7>
+            <Wnd4>
+              <Rect>
+                <Top>0</Top>
+                <Left>0</Left>
+                <Bottom>1769096287</Bottom>
+                <Right>1752197490</Right>
+                <x>592</x>
+                <y>-2</y>
+                <xscreen>690</xscreen>
+                <yscreen>200</yscreen>
+                <sizeHorzCX>539063</sizeHorzCX>
                 <sizeHorzCY>278552</sizeHorzCY>
                 <sizeVertCX>156250</sizeVertCX>
                 <sizeVertCY>278552</sizeVertCY>
               </Rect>
-            </Wnd1>
+            </Wnd4>
           </Sizes>
         </Row0>
       </Bottom>
@@ -267,6 +397,6 @@
       </Float>
     </Positions>
   </Desktop>
-</Workspace>
+</Project>
 
 

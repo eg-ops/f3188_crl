@@ -16,11 +16,16 @@
 #define PREV GPIO_PIN_2 // Port D
 #define PLAY_TOGGLE GPIO_PIN_3 // Port D
 
+static int counter = 0;
 
-
-INTERRUPT_HANDLER(EXTI_PORTD_IRQHandler, 6)
+INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
 {
+  EXTI_Sensitivity_TypeDef sensitivity = EXTI_GetExtIntSensitivity(EXTI_PORT_GPIOA);
+  if(sensitivity == EXTI_SENSITIVITY_RISE_ONLY){
     nop();
+  } else if (sensitivity == EXTI_SENSITIVITY_FALL_ONLY){
+    nop();
+  }
 }
 
 
@@ -29,7 +34,21 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-  nop();
+  
+  EXTI_Sensitivity_TypeDef sensitivity = EXTI_GetExtIntSensitivity(EXTI_PORT_GPIOB);
+  int pins = GPIO_ReadInputData(GPIOB);
+  BitStatus pin_led1 = (BitStatus)pins & GPIO_PIN_4;
+  BitStatus pin_led0 = (BitStatus)pins & GPIO_PIN_5;
+  
+  if(sensitivity == EXTI_SENSITIVITY_RISE_ONLY){
+    nop();
+  } else if (sensitivity == EXTI_SENSITIVITY_FALL_ONLY){
+    nop();
+  }
+  pins++;
+  pin_led0++;
+  pin_led1++;
+
 }
 
 
@@ -63,19 +82,25 @@ int main( void )
   //EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_FALL_LOW);
   
   GPIO_DeInit(GPIOB);
-  //GPIO_Init(GPIOB, LED0, GPIO_MODE_IN_PU_IT);
+  GPIO_DeInit(GPIOA);
+  GPIO_Init(GPIOB, LED0, GPIO_MODE_IN_PU_IT);
   GPIO_Init(GPIOB, LED1, GPIO_MODE_IN_PU_IT);
+  GPIO_Init(GPIOA, LED2, GPIO_MODE_IN_PU_IT);
   
   disableInterrupts();
   EXTI_DeInit();
-  EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOB, EXTI_SENSITIVITY_RISE_ONLY); // EXTI_SENSITIVITY_RISE_FALL
+  EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOB, EXTI_SENSITIVITY_RISE_FALL); // EXTI_SENSITIVITY_RISE_FALL
+  EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOA, EXTI_SENSITIVITY_RISE_FALL); 
   enableInterrupts();      
   
   while(1){
+    
     GPIO_WriteHigh(GPIOC, NEXT);
-    delay(500);
+    delay(452500);
     GPIO_WriteLow(GPIOC, NEXT);
     delay(0x2000);
+    
+    counter++;
   }
    
 }

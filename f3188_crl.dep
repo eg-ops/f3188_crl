@@ -155,7 +155,7 @@
       <inputs>
         <tool>
           <name>BICOMP</name>
-          <file> 49 0 12 10 7 16 46 114 2 14 18 52 48 17 3 9 11 13 15 19 56</file>
+          <file> 12 0 49 10 7 16 46 114 2 14 18 52 48 17 3 9 11 13 15 19 56</file>
         </tool>
         <tool>
           <name>ICCSTM8</name>
