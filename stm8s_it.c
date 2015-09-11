@@ -286,12 +286,13 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   * @param  None
   * @retval None
   */
- INTERRUPT_HANDLER(TIM2_CAP_COM_IRQHandler, 14)
- {
+ //INTERRUPT_HANDLER(TIM2_CAP_COM_IRQHandler, 14)
+ //{
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
- }
+   
+  //}
 #endif /* (STM8S903) || (STM8AF622x) */
 
 #if defined (STM8S208) || defined(STM8S207) || defined(STM8S007) || defined(STM8S105) || \
