@@ -38,7 +38,7 @@ ShowSource=1
 [Simulator]
 Freq=16000000
 [DebugChecksum]
-Checksum=-458412181
+Checksum=2085977286
 [CallStack]
 ShowArgs=0
 [Disassembly]
@@ -52,8 +52,8 @@ ShowTimeSum=1
 Bp0=_ "STD_CODE" "{$PROJ_DIR$\main.c}.34.5" 1 0 0 0 "" 0 ""
 Bp1=_ "STD_CODE" "{$PROJ_DIR$\stm8s_it.c}.337.2" 1 0 0 0 "" 0 ""
 Bp2=_ "STD_CODE" "{$PROJ_DIR$\stm8s_it.c}.337.2" 1 0 0 0 "" 0 ""
-Bp3=_ "STD_CODE" "{$PROJ_DIR$\main.c}.244.3" 1 0 0 0 "" 0 ""
-Bp4=_ "STD_CODE" "{$PROJ_DIR$\main.c}.239.3" 1 0 0 0 "" 0 ""
+Bp3=_ "STD_CODE" "{$PROJ_DIR$\main.c}.259.3" 0 0 0 0 "" 0 ""
+Bp4=_ "STD_CODE" "{$PROJ_DIR$\main.c}.230.5" 1 0 0 0 "" 0 ""
 Count=5
 [Log file]
 LoggingEnabled=_ 0

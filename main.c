@@ -147,12 +147,18 @@ void play_toggle(){
 
 */
 
-int main( void )
-{
-  CLK_DeInit();
-  CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
-  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV2);
-  //CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE, DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
+/* Short Click
+
+#define HIGH 400
+#define LOW (HIGH/2)
+  GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
+  t_delay(HIGH);
+  GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
+  t_delay(LOW);
+
+*/
+
+void init_gpio(){
   
   GPIO_Init(GPIOC, VOL_PLUS, GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_Init(GPIOC, VOL_MINUS, GPIO_MODE_OUT_PP_LOW_FAST);
@@ -160,8 +166,6 @@ int main( void )
   
   GPIO_Init(GPIOD, PREV, GPIO_MODE_OUT_PP_LOW_FAST);
   GPIO_Init(GPIOD, PLAY_TOGGLE, GPIO_MODE_OUT_PP_LOW_FAST);
-  
-  
   
   //EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOD, EXTI_SENSITIVITY_FALL_LOW);
   
@@ -173,25 +177,42 @@ int main( void )
   
   GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_IN_PU_NO_IT);
   
+}
+
+void init_tim2(){
+
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER2, ENABLE);
-  
   TIM2_TimeBaseInit(TIM2_PRESCALER_1024, 0xFFFF);
-  
   TIM2_PWMIConfig(TIM2_CHANNEL_1, TIM2_ICPOLARITY_FALLING, TIM2_ICSELECTION_DIRECTTI, TIM2_ICPSC_DIV1, 0xF);
-  
   TIM2_ITConfig(TIM2_IT_CC1, ENABLE);
-  TIM2_ITConfig(TIM2_IT_CC2, ENABLE);
-  
+  TIM2_ITConfig(TIM2_IT_CC2, ENABLE);  
   TIM2_CCxCmd(TIM2_CHANNEL_1, ENABLE);
-   
   TIM2_Cmd(ENABLE);
-  
-  
+
+}
+
+void init_tim4(){
+
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4, ENABLE);
   TIM4_DeInit();
   TIM4_TimeBaseInit(TIM4_PRESCALER_128, 250);
   TIM4_SelectOnePulseMode(TIM4_OPMODE_REPETITIVE);
   TIM4_Cmd(ENABLE);
+  
+}
+
+int main( void )
+{
+  CLK_DeInit();
+  CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
+  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV2);
+  //CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE, DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
+  
+  init_gpio();
+  
+  init_tim2();  
+  
+  init_tim4();
   
   disableInterrupts();
   EXTI_DeInit();
