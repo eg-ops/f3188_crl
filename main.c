@@ -3,6 +3,11 @@
 #include "stm8s_gpio.h"
 #include "stm8s_spi.h"
 #include "stm8s_exti.h"
+#include "stm8s_tim4.h"
+
+#define MCU_SPEED_MHZ 8000000
+#define MS_IN_SECOND 1000
+#define get_ms(x) (MS_IN_SECOND*x)/(MCU_SPEED_MHZ/(1 << TIM2_PRESCALER_128))
 
 #define LED0_YELLOW GPIO_PIN_4 // Port B
 #define LED1_BLUE   GPIO_PIN_5 // Port B
@@ -16,9 +21,10 @@
 #define PREV GPIO_PIN_2 // Port D
 #define PLAY_TOGGLE GPIO_PIN_3 // Port D
 
-static int counter = 0;
+static int first_time = 0;
+static uint32_t counter = 0;
 static int high = 0;
-static unsigned int array[100] = {0};
+static uint32_t array[100] = {0};
 static int index = 0;
 
 INTERRUPT_HANDLER(EXTI_PORTA_IRQHandler, 3)
@@ -47,7 +53,7 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
   } else {
     pins = counter - high;
     if (sizeof(array)/sizeof(int) > index){
-        array[index++] = pins;
+       // array[index++] = pins;
     }
   }
  
@@ -72,23 +78,24 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
      if(TIM2_GetITStatus(TIM2_IT_CC1)) 
      {
         TIM2_ClearITPendingBit(TIM2_IT_CC1);
-        int CCR1_Val=TIM2_GetCapture1();
-        CCR1_Val++;
-        CCR1_Val++;
+        if (first_time == 0){
+          first_time = 1;
+        } else {
+          int32_t CCR1_Val=TIM2_GetCapture1();
+          if (sizeof(array)/sizeof(uint32_t) > index){
+            array[index++] = (CCR1_Val*10000)/78125;
+          }
+        }
         TIM2_SetCounter(0);
      }
       if(TIM2_GetITStatus(TIM2_IT_CC2)) 
      {
         TIM2_ClearITPendingBit(TIM2_IT_CC2);
-        int CCR2_Val=TIM2_GetCapture2();
+        int32_t CCR2_Val=TIM2_GetCapture2();
         
-        if (sizeof(array)/sizeof(int) > index){
-          array[index++] = CCR2_Val;
+        if (sizeof(array)/sizeof(uint32_t) > index){
+          array[index++] = (CCR2_Val*10000)/78125; // ((8000000/1024)/(1000))
         }
-        
-        CCR2_Val++;
-        CCR2_Val++;
-        
      }
  }
 
@@ -98,17 +105,53 @@ static void delay(uint32_t t)
   while(t--);
 }
 
+
+void t_delay(int32_t delay_ms){
+  for (;delay_ms > 0; delay_ms-=4){
+    TIM4_SetCounter(0);
+    while(TIM4_GetFlagStatus(TIM4_FLAG_UPDATE) == RESET ){
+      counter++;
+    }
+    TIM4_ClearFlag(TIM4_FLAG_UPDATE);
+  }
+}
+
 void play_toggle(){
     GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
-    delay(5000);
+    delay(5000); 
     GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
     delay(1000);
 }
+
+/* Long
+  GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
+  t_delay(1000);
+  GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
+  t_delay(1000);
+*/
+
+
+/* Double click
+
+#define HIGH 400
+#define LOW (HIGH/2)
+  
+  GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
+  t_delay(HIGH);
+  GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
+  t_delay(LOW);
+  GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
+  t_delay(HIGH);
+  GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
+  t_delay(LOW);
+
+*/
 
 int main( void )
 {
   CLK_DeInit();
   CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSI, DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
+  CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV2);
   //CLK_ClockSwitchConfig(CLK_SWITCHMODE_AUTO, CLK_SOURCE_HSE, DISABLE, CLK_CURRENTCLOCKSTATE_DISABLE);
   
   GPIO_Init(GPIOC, VOL_PLUS, GPIO_MODE_OUT_PP_LOW_FAST);
@@ -132,9 +175,9 @@ int main( void )
   
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER2, ENABLE);
   
-  TIM2_TimeBaseInit(TIM2_PRESCALER_16, 0xFFFF);
+  TIM2_TimeBaseInit(TIM2_PRESCALER_1024, 0xFFFF);
   
-  TIM2_PWMIConfig(TIM2_CHANNEL_1, TIM2_ICPOLARITY_FALLING, TIM2_ICSELECTION_DIRECTTI, TIM2_ICPSC_DIV2, 0xF);
+  TIM2_PWMIConfig(TIM2_CHANNEL_1, TIM2_ICPOLARITY_FALLING, TIM2_ICSELECTION_DIRECTTI, TIM2_ICPSC_DIV1, 0xF);
   
   TIM2_ITConfig(TIM2_IT_CC1, ENABLE);
   TIM2_ITConfig(TIM2_IT_CC2, ENABLE);
@@ -143,20 +186,36 @@ int main( void )
    
   TIM2_Cmd(ENABLE);
   
+  
+  CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4, ENABLE);
+  TIM4_DeInit();
+  TIM4_TimeBaseInit(TIM4_PRESCALER_128, 250);
+  TIM4_SelectOnePulseMode(TIM4_OPMODE_REPETITIVE);
+  TIM4_Cmd(ENABLE);
+  
   disableInterrupts();
   EXTI_DeInit();
   EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOB, EXTI_SENSITIVITY_RISE_FALL); // EXTI_SENSITIVITY_RISE_FALL
   EXTI_SetExtIntSensitivity(EXTI_PORT_GPIOA, EXTI_SENSITIVITY_RISE_FALL); 
   enableInterrupts();      
+
+/*
+  GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
+  t_delay(250);
+  GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
+  t_delay(1000);
+*/
+
+#define HIGH 400
+#define LOW (HIGH/2)
+  
+  GPIO_WriteHigh(GPIOD, PLAY_TOGGLE);
+  t_delay(HIGH);
+  GPIO_WriteLow(GPIOD, PLAY_TOGGLE);
+  t_delay(LOW);
   
   while(1){
-    /*
-    GPIO_WriteHigh(GPIOD, PREV);
-    delay(12500);
-    GPIO_WriteLow(GPIOD, PREV);
-    delay(0x2000);
-    */
-    delay(100);
+    
     counter++;
   }
    
