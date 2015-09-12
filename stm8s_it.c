@@ -459,12 +459,12 @@ INTERRUPT_HANDLER(I2C_IRQHandler, 19)
   * @retval 
   * None
   */
- INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
- {
+// INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
+// {
     /* In order to detect unexpected events during development,
        it is recommended to set a breakpoint on the following instruction.
     */
- }
+// }
 #endif /* (STM8S208) || (STM8S207) || (STM8AF52Ax) || (STM8AF62Ax) */
 
 #if defined (STM8S903) || defined (STM8AF622x)

@@ -100,6 +100,14 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
  }
 
 
+ INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
+ {
+  
+   
+   
+ }
+
+
 static void delay(uint32_t t)
 {
   while(t--);
@@ -191,6 +199,29 @@ void init_tim2(){
 
 }
 
+void init_adc(){
+
+   ADC1_DeInit();
+    
+  /* Enable EOC interrupt */
+  ADC1_ITConfig(ADC1_IT_EOCIE, ENABLE);
+    
+  /* Enable conversion data buffering */
+  ADC1_DataBufferCmd(ENABLE);
+    
+  /* Enable scan mode conversion */
+  ADC1_ScanModeCmd(ENABLE);
+
+    /* ADC1 Channel 6 */
+  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D8, \
+            ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_CHANNEL6,\
+            DISABLE);                       
+    
+  /* Enable ADC1 */
+  ADC1_Cmd(ENABLE);
+  
+}
+
 void init_tim4(){
 
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_TIMER4, ENABLE);
@@ -213,6 +244,8 @@ int main( void )
   init_tim2();  
   
   init_tim4();
+  
+  //init_adc();
   
   disableInterrupts();
   EXTI_DeInit();
