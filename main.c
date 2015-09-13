@@ -231,27 +231,32 @@ void init_adc(){
    ADC1_DeInit();
   
   /* Enable conversion data buffering */
-  ADC1_DataBufferCmd(ENABLE);
+  //ADC1_DataBufferCmd(ENABLE);
     
+
   /* Enable scan mode conversion */
   ADC1_ScanModeCmd(ENABLE);
-
+  
   /* ADC1 Channel 6 */
-  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D12, \
+  ADC1_Init(ADC1_CONVERSIONMODE_SINGLE, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D12, \
             ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_ALL,\
-            DISABLE);                   
-  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_2, ADC1_PRESSEL_FCPU_D12, \
-            ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_ALL,\
-            DISABLE); 
+            DISABLE);   
   
-  /* Enable EOC interrupt */
-  ADC1_ITConfig(ADC1_IT_EOCIE, ENABLE);
-  ADC1_ClearITPendingBit(ADC1_IT_EOC);  
-  
-  /* Enable ADC1 */
-  ADC1_Cmd(ENABLE);
   
   ADC1_StartConversion();
+  while (ADC1_GetFlagStatus(ADC1_FLAG_EOC) == RESET);
+  ADC1_ClearFlag(ADC1_FLAG_EOC);
+  
+   Conversion_Value = ADC1_GetConversionValue();
+  
+   while(1){
+      ADC1_StartConversion();
+      while (ADC1_GetFlagStatus(ADC1_FLAG_EOC) == RESET);
+      ADC1_ClearFlag(ADC1_FLAG_EOC);
+      Conversion_Value = ADC1_GetConversionValue();
+      
+   }
+  
   
 }
 
