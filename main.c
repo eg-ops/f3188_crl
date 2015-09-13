@@ -109,25 +109,10 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
  INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
  {
   
-    FlagStatus status = ADC1_GetFlagStatus(ADC1_FLAG_AWS6);
-
     Conversion_Value = ADC1_GetConversionValue();
     
-    Conversion_Value = ADC1_GetBufferValue(0);
-    Conversion_Value = ADC1_GetBufferValue(1);
-    Conversion_Value = ADC1_GetBufferValue(2);
-    Conversion_Value = ADC1_GetBufferValue(3);
-    Conversion_Value = ADC1_GetBufferValue(4);
-    Conversion_Value = ADC1_GetBufferValue(5);
-    Conversion_Value = ADC1_GetBufferValue(6);
-    Conversion_Value = ADC1_GetBufferValue(7);
-
-
-    
-    ADC1_ClearITPendingBit(ADC1_IT_AWS6);
     ADC1_ClearITPendingBit(ADC1_IT_EOC);
     ADC1_ClearFlag(ADC1_FLAG_EOC);
-    //ADC1_StartConversion();
  }
 
 
@@ -227,36 +212,18 @@ void init_tim2(){
 void init_adc(){
 
   CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC, ENABLE);
-  
-   ADC1_DeInit();
-  
-  /* Enable conversion data buffering */
-  //ADC1_DataBufferCmd(ENABLE);
-    
-
-  /* Enable scan mode conversion */
-  ADC1_ScanModeCmd(ENABLE);
+  ADC1_DeInit();
   
   /* ADC1 Channel 6 */
-  ADC1_Init(ADC1_CONVERSIONMODE_SINGLE, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D12, \
-            ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_ALL,\
-            DISABLE);   
+  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D12, \
+          ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_ALL,\
+          DISABLE);   
+
   
-  
-  ADC1_StartConversion();
-  while (ADC1_GetFlagStatus(ADC1_FLAG_EOC) == RESET);
-  ADC1_ClearFlag(ADC1_FLAG_EOC);
-  
-   Conversion_Value = ADC1_GetConversionValue();
-  
-   while(1){
-      ADC1_StartConversion();
-      while (ADC1_GetFlagStatus(ADC1_FLAG_EOC) == RESET);
-      ADC1_ClearFlag(ADC1_FLAG_EOC);
-      Conversion_Value = ADC1_GetConversionValue();
-      
-   }
-  
+  ADC1_ITConfig(ADC1_IT_EOCIE, ENABLE);
+  ADC1_ClearITPendingBit(ADC1_IT_EOC);
+   /* Enable ADC1 */
+  ADC1_Cmd(ENABLE);
   
 }
 
