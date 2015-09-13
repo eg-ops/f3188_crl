@@ -3,11 +3,16 @@
 #include "stm8s_gpio.h"
 #include "stm8s_spi.h"
 #include "stm8s_exti.h"
+#include "stm8s_tim1.h"
+#include "stm8s_tim2.h"
 #include "stm8s_tim4.h"
+#include "stm8s_adc1.h"
 
 #define MCU_SPEED_MHZ 8000000
 #define MS_IN_SECOND 1000
 #define get_ms(x) (MS_IN_SECOND*x)/(MCU_SPEED_MHZ/(1 << TIM2_PRESCALER_128))
+
+#define ADC_PIN GPIO_PIN_6 // Port D
 
 #define LED0_YELLOW GPIO_PIN_4 // Port B
 #define LED1_BLUE   GPIO_PIN_5 // Port B
@@ -21,6 +26,7 @@
 #define PREV GPIO_PIN_2 // Port D
 #define PLAY_TOGGLE GPIO_PIN_3 // Port D
 
+static uint16_t Conversion_Value = 0;
 static int first_time = 0;
 static uint32_t counter = 0;
 static int high = 0;
@@ -103,8 +109,25 @@ INTERRUPT_HANDLER(EXTI_PORTB_IRQHandler, 4)
  INTERRUPT_HANDLER(ADC1_IRQHandler, 22)
  {
   
-   
-   
+    FlagStatus status = ADC1_GetFlagStatus(ADC1_FLAG_AWS6);
+
+    Conversion_Value = ADC1_GetConversionValue();
+    
+    Conversion_Value = ADC1_GetBufferValue(0);
+    Conversion_Value = ADC1_GetBufferValue(1);
+    Conversion_Value = ADC1_GetBufferValue(2);
+    Conversion_Value = ADC1_GetBufferValue(3);
+    Conversion_Value = ADC1_GetBufferValue(4);
+    Conversion_Value = ADC1_GetBufferValue(5);
+    Conversion_Value = ADC1_GetBufferValue(6);
+    Conversion_Value = ADC1_GetBufferValue(7);
+
+
+    
+    ADC1_ClearITPendingBit(ADC1_IT_AWS6);
+    ADC1_ClearITPendingBit(ADC1_IT_EOC);
+    ADC1_ClearFlag(ADC1_FLAG_EOC);
+    //ADC1_StartConversion();
  }
 
 
@@ -185,6 +208,8 @@ void init_gpio(){
   
   GPIO_Init(GPIOD, GPIO_PIN_4, GPIO_MODE_IN_PU_NO_IT);
   
+  GPIO_Init(GPIOD, ADC_PIN, GPIO_MODE_IN_FL_NO_IT);
+  
 }
 
 void init_tim2(){
@@ -201,24 +226,32 @@ void init_tim2(){
 
 void init_adc(){
 
+  CLK_PeripheralClockConfig(CLK_PERIPHERAL_ADC, ENABLE);
+  
    ADC1_DeInit();
-    
-  /* Enable EOC interrupt */
-  ADC1_ITConfig(ADC1_IT_EOCIE, ENABLE);
-    
+  
   /* Enable conversion data buffering */
   ADC1_DataBufferCmd(ENABLE);
     
   /* Enable scan mode conversion */
   ADC1_ScanModeCmd(ENABLE);
 
-    /* ADC1 Channel 6 */
-  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D8, \
-            ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_CHANNEL6,\
-            DISABLE);                       
-    
+  /* ADC1 Channel 6 */
+  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_6, ADC1_PRESSEL_FCPU_D12, \
+            ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_ALL,\
+            DISABLE);                   
+  ADC1_Init(ADC1_CONVERSIONMODE_CONTINUOUS, ADC1_CHANNEL_2, ADC1_PRESSEL_FCPU_D12, \
+            ADC1_EXTTRIG_TIM, DISABLE, ADC1_ALIGN_RIGHT, ADC1_SCHMITTTRIG_ALL,\
+            DISABLE); 
+  
+  /* Enable EOC interrupt */
+  ADC1_ITConfig(ADC1_IT_EOCIE, ENABLE);
+  ADC1_ClearITPendingBit(ADC1_IT_EOC);  
+  
   /* Enable ADC1 */
   ADC1_Cmd(ENABLE);
+  
+  ADC1_StartConversion();
   
 }
 
@@ -245,7 +278,7 @@ int main( void )
   
   init_tim4();
   
-  //init_adc();
+  init_adc();
   
   disableInterrupts();
   EXTI_DeInit();
